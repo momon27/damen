@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beranda - Damen Bakery's</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container position-relative">
+      <!-- Logo kiri sederhana, hanya tulisan -->
+     <a class="navbar-brand fw-bold d-flex align-items-center" href="#" style="font-family: 'Poppins', sans-serif; font-size: 1.5rem; color: #ffffff;">
+  <img src="logo.png.png" alt="Logo" style="height:38px; width:auto; margin-right:10px; border-radius:8px;">
+  Damen <span style="color:#ff69b4;">Bakery's</span>
+</a>
+      <!-- Keranjang versi mobile (Shopee style) -->
+      <div class="d-lg-none position-relative ms-auto me-2">
+        <a href="keranjang.html" class="btn position-relative d-flex align-items-center px-3 py-2 rounded-pill shadow-sm" style="background:#fff3f8; border:1.5px solid #ff69b4;">
+          <i class="bi bi-cart-fill fs-5" style="color:#ff69b4;"></i>
+          <span class="ms-2 fw-semibold" style="color:#3a3a5a;">Keranjang</span>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="cart-badge-mobile" style="background:#ff69b4; color:#fff; font-size:0.85em; border:2px solid #fff;">0</span>
+        </a>
+      </div>
+      <!-- Tombol hamburger -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Isi navbar -->
+      <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link nav-link-efek" href="index.html">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-efek" href="produk.html">Produk</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-efek" href="tentang.html">Tentang</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-efek" href="hubungi.html">Hubungi Kami</a>
+          </li>
+        </ul>
+      <!-- Form pencarian khusus versi mobile -->
+      <style>
+        .nav-link-efek {
+          position: relative;
+          transition: color 0.2s;
+          cursor: pointer;
+        }
+        .nav-link-efek:active {
+          color: #ff69b4 !important;
+          background: rgba(255,105,180,0.08);
+          border-radius: 6px;
+        }
+        .nav-link-efek::after {
+          content: "";
+          display: block;
+          width: 0;
+          height: 2px;
+          background: #ff69b4;
+          transition: width 0.2s;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+        }
+        .nav-link-efek:hover::after {
+          width: 100%;
+        }
+        /* Mobile search style mirip desktop */
+        .mobile-search-form {
+          width: 100%;
+          gap: 0.5rem;
+        }
+        .mobile-search-form .form-control {
+          border-radius: 50px;
+          min-width: 0;
+          font-size: 1em;
+          background: #fff;
+          border: 1.5px solid #ff69b4;
+          color: #3a3a5a;
+        }
+        .mobile-search-form .btn-pink {
+          background: #ff69b4;
+          color: #fff;
+            font-weight: 600;
+            border-radius: 50px;
+            padding-left: 0.9em;
+            padding-right: 0.9em;
+            border: none;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+            min-width: 0;
+            }
+            /* Tombol cari mobile lebih pendek */
+            .mobile-search-form .btn-pink {
+            padding-left: 0.8em;
+            padding-right: 0.8em;
+            font-size: 0.95em;
+            min-width: 60px;
+            max-width: 80px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            }
+            .mobile-search-form {
+            flex-wrap: nowrap;
+            flex-direction: row;
+            align-items: center;
+            display: flex;
+            gap: 0.5rem;
+            }
+            @media (max-width: 576px) {
+            .mobile-search-form .form-control {
+            min-width: 0;
+            font-size: 0.97em;
+            }
+            .mobile-search-form .btn-pink {
+            font-size: 0.93em;
+            min-width: 48px;
+            max-width: 70px;
+            padding-left: 0.6em;
+            padding-right: 0.6em;
+            }
+            }
+            </style>
+            <form class="d-flex d-lg-none px-2 mt-2 mobile-search-form align-items-center" role="search" style="gap:0.5rem;">
+            <input class="form-control form-control-sm rounded-pill" type="search" placeholder="Cari produk..." style="min-width:120px;"/>
+            <button class="btn btn-sm btn-pink rounded-pill" type="submit" style="display:flex;align-items:center;justify-content:center;">
+              <span style="width:100%;text-align:center;">Cari</span>
+            </button>
+            </form>
+        <!-- Pencarian + keranjang versi desktop (Shopee style) -->
+        <div class="d-none d-lg-flex align-items-center gap-3">
+          <form class="d-flex" role="search">
+            <input class="form-control form-control-sm me-2 rounded-pill" type="search" placeholder="Cari produk..." style="min-width:180px;"/>
+            <button class="btn btn-sm btn-pink rounded-pill px-3" type="submit" style="background:#ff69b4; color:#fff; font-weight:600;">Cari</button>
+          </form>
+          <div class="dropdown">
+            <a href="keranjang.html" class="btn position-relative d-flex align-items-center px-3 py-2 rounded-pill shadow-sm" style="background:#fff3f8; border:1.5px solid #ff69b4;">
+              <i class="bi bi-cart-fill fs-5" style="color:#ff69b4;"></i>
+              <span class="ms-2 fw-semibold" style="color:#3a3a5a;">Keranjang</span>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="cart-badge-desktop" style="background:#ff69b4; color:#fff; font-size:0.85em; border:2px solid #fff;">0</span>
+            </a>
+            <!-- Dropdown keranjang preview -->
+            <div class="dropdown-menu dropdown-menu-end p-3 shadow" style="min-width:300px; max-width:350px;">
+              <div class="text-center text-muted small">Keranjang masih kosong</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<!-- Hero Slider Redesain Modern -->
+<div id="hero-slider" class="hero-slider position-relative overflow-hidden d-flex align-items-center justify-content-center" style="height: 500px; min-height: 500px;">
+  <!-- Overlay gradient -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(120deg, rgba(255, 0, 200, 0), rgba(255, 0, 200, 0)); z-index:1;"></div>
+
+  <!-- Slides 1 -->
+  <div class="w-100 h-100 position-absolute top-0 start-0 hero-slides">
+    <div class="slide active d-flex flex-column align-items-center justify-content-center h-100 w-100" style="background: url('slider2.png') center/cover no-repeat; z-index:2;">
+      <div class="glass-card text-center px-4 py-3" style="backdrop-filter: blur(100px); background: rgba(255,255,255,0.15); border-radius: 16px;">
+        <h1 class="display-4 fw-bold mb-2 text-white">"Tempat Belanja Aneka Cake <span style="color:#ab0c70;">Terbaik</span> & <span style="color:#ab0c70;">Hemat"</span></h1>
+        <p class="lead mb-3 text-light">Nikmati pengalaman belanja kue premium dengan harga terjangkau.</p>
+        <a href="produk.html" class="btn btn-lg px-4 py-2 rounded-pill fw-semibold btn-light shadow">Belanja Sekarang <i class="bi bi-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+   <!-- Slides 2 -->
+    <div class="slide active d-flex flex-column align-items-center justify-content-center h-100 w-100" style="background: url('slide.png') center/cover no-repeat; z-index:2;">
+      <div class="glass-card text-center px-4 py-3" style="backdrop-filter: blur(100px); background: rgba(255,255,255,0.15); border-radius: 16px;">
+        <h1 class="display-4 fw-bold mb-2 text-white">"Rayakan momen spesialmu dengan <span style="color:#ab0c70;">kue spesial</span> dari <span style="color:#ab0c70;">Kami"</span></h1>
+        <p class="lead mb-3 text-light">Nikmati juga promo-promo kami.</p>
+        <a href="produk.html" class="btn btn-lg px-4 py-2 rounded-pill fw-semibold btn-light shadow">Lihat Promo <i class="bi bi-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+   <!-- Slides 3 -->
+    <div class="slide active d-flex flex-column align-items-center justify-content-center h-100 w-100" style="background: url('slider3.png') center/cover no-repeat; z-index:2;">
+      <div class="glass-card text-center px-4 py-3" style="backdrop-filter: blur(100px); background: rgba(255,255,255,0.15); border-radius: 16px;">
+        <h1 class="display-4 fw-bold mb-2 text-white">"Diskon spesial! Semua kue mulai <span style="color:#ab0c70;">Rp10.000 aja!" </span><span style="color:#ab0c70;"></span></h1>
+        <p class="lead mb-3 text-light">Nikmati kelembutan dan kelezatan di setiap gigitan.</p>
+        <a href="produk.html" class="btn btn-lg px-4 py-2 rounded-pill fw-semibold btn-light shadow">Pesan Sekarang<i class="bi bi-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+   <!-- Slides 4 -->
+    <div class="slide active d-flex flex-column align-items-center justify-content-center h-100 w-100" style="background: url('new.png') center/cover no-repeat; z-index:2;">
+      <div class="glass-card text-center px-4 py-3" style="backdrop-filter: blur(100px); background: rgba(255,255,255,0.15); border-radius: 16px;">
+        <h1 class="display-4 fw-bold mb-2 text-white">"Pesan sekarang, dapat bonus <span style="color:#ab0c70;">cookies!"</span><span style="color:#ab0c70;"></span></h1>
+        <p class="lead mb-3 text-light">Cocok untuk hampers dan kado spesial.</p>
+        <a href="produk.html" class="btn btn-lg px-4 py-2 rounded-pill fw-semibold btn-light shadow">Checkout Sekarang<i class="bi bi-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+   </div>
+     <!-- Slider Controls -->
+  <button class="hero-prev btn btn-light rounded-circle position-absolute top-50 start-0 translate-middle-y shadow" style="z-index:10; width:44px; height:44px; opacity:0.92;">
+    <i class="bi bi-chevron-left fs-4" style="color:#ff69b4;"></i>
+  </button>
+  <button class="hero-next btn btn-light rounded-circle position-absolute top-50 end-0 translate-middle-y shadow" style="z-index:10; width:44px; height:44px; opacity:0.92;">
+    <i class="bi bi-chevron-right fs-4" style="color:#ff69b4;"></i>
+  </button>
+  <!-- Dots -->
+  <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3 d-flex gap-2 hero-dots" style="z-index:10;">
+    <span class="hero-dot rounded-circle"></span>
+    <span class="hero-dot rounded-circle"></span>
+    <span class="hero-dot rounded-circle"></span>
+    <span class="hero-dot rounded-circle"></span>
+  </div>
+</div>
+<!-- Section: Produk Paling Laris -->
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 text-center">
+      <h2 class="fw-bold mb-2" style="color:#ab0c70;">Produk Paling Laris</h2>
+      <p class="lead" style="color:#3a3a5a;">
+        Temukan pilihan <span style="color:#ff69b4; font-weight:600;">produk paling laris</span> di Damen Bakery's! Favorit pelanggan, selalu jadi incaran, dan cepat habis setiap hari. Yuk, buruan cek sebelum kehabisan!
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+  <div class="container mb-5 mt-3">
+    <div class="row g-3 justify-content-start" id="produk-row" style="padding-left: 12px;">
+      <!-- Produk akan digenerate otomatis oleh script.js -->
+    </div>
+  </div>
+
+  <footer class="text-center py-2 bg-blue text-black">
+    <p>&copy; 2025 Damen Bakery's. All rights reserved.</p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  // Data produk
+  const produkList = [
+  {
+    id: "produk1",
+    nama: "Nastar Keju Premium",
+    harga: 10857,
+    gambar: "https://i.pinimg.com/736x/12/30/90/123090f46906e40ca08f47516c148e98.jpg",
+    deskripsi: "Kue ini terbuat dari 100% alami tanpa bahan pengawet, sangat lezat dan cocok untuk segala usia.",
+    diskon: "-10%"
+  },
+  {
+    id: "produk2",
+    nama: "Choco Lava Cake",
+    harga: 10520,
+    gambar: "https://i.pinimg.com/736x/b5/dc/b7/b5dcb77966a90c82184b7f8de9d29c1e.jpg",
+    deskripsi: "Kue coklat lumer di dalam, favorit anak-anak.",
+    diskon: "-10%"
+  },
+  {
+    id: "produk3",
+    nama: "Brownies Coklat kopi",
+    harga: 35000,
+    gambar: "https://i.pinimg.com/736x/27/83/69/278369350d38276479a291db7f62525a.jpg",
+    deskripsi: "Brownies coklat kopi premium, tekstur fudgy dan rasa coklat pekat.",
+    diskon: "-20%"
+  },
+  {
+    id: "produk4",
+    nama: "Kue Cubir",
+    harga: 15000,
+    gambar: "https://i.pinimg.com/736x/7d/e0/27/7de02778801b3be6b18b08435e67f023.jpg",
+    deskripsi: "Kue cubir yang lembut dan manis, cocok untuk camilan sore.",
+    diskon: "-15%"
+  },
+    {
+    id: "produk5",
+    nama: "Nastar Klasik",
+    harga: 35000,
+    gambar: "https://i.pinimg.com/736x/20/85/71/20857151b59c16adf380de94e716de7e.jpg",
+    deskripsi: "Nastar klasik dengan cita rasa lembut dan legit.",
+        diskon: "-10%"
+    },
+    {
+        id: "produk6",
+        nama: "Nastar Coklat",
+        harga: 38000,
+        gambar: "https://i.pinimg.com/736x/30/c1/86/30c186eca75117e258c0b87a13c5281b.jpg",
+        deskripsi: "Nastar dengan isian coklat lumer di dalam.",
+        diskon: "-15%"
+    },
+    {
+        id: "produk7",
+        nama: "Kue Lapis Legit",
+        harga: 60000,
+        gambar: "https://i.pinimg.com/736x/46/9d/ae/469dae57a610c0e73eed50d1d8a0bbf5.jpg",
+        deskripsi: "Lapis legit homemade dengan aroma rempah khas.",
+        diskon: "-25%"
+    },
+    {
+        id: "produk8",
+        nama: "Kue Putri Salju",
+        harga: 30000,
+        gambar: "https://i.pinimg.com/736x/f3/df/fa/f3dffaf7d5db005674918708092764f8.jpg",
+        deskripsi: "Putri salju lembut dengan taburan gula halus.",
+        diskon: "-10%"
+    },
+    {
+        id: "produk9",
+        nama: "Kue Kuping Gajah",
+        harga: 15000,
+        gambar: "https://i.pinimg.com/736x/84/b6/a7/84b6a73b31bb04f47bb8eeaf1e1a163f.jpg",
+        deskripsi: "Kue kuping gajah yang renyah dan gurih.",
+        diskon: "-15%"
+    },
+    {
+        id: "produk10",
+        nama: "Brownies Panggang",
+        harga: 40000,
+        gambar: "https://i.pinimg.com/736x/ad/43/cb/ad43cbe86ba4b9dc9f9c1c4fb9843af4.jpg",
+        deskripsi: "Brownies panggang dengan coklat pekat dan tekstur fudgy.",
+        diskon: "-20%"
+    },
+    {
+        id: "produk11",
+        nama: "Bolu Kukus Pelangi",
+        harga: 25000,
+        gambar: "https://i.pinimg.com/736x/c0/6e/ae/c06eae031ad7d4fd43283877bfbee60a.jpg",
+        deskripsi: "Bolu kukus warna-warni yang lembut dan menggoda selera.",
+        diskon: "-10%"
+    },
+    {
+        id: "produk12",
+        nama: "Kue Kering Choco Chip",
+        harga: 30000,
+        gambar: "https://i.pinimg.com/736x/cb/78/d2/cb78d28c2737b12cef7779c3a2063c75.jpg",
+        deskripsi: "Kue kering dengan choco chip yang renyah dan manis.",
+        diskon: "-18%"
+    },
+    {
+        id: "produk13",
+        nama: "Cake Tiramisu Mini",
+        harga: 55000,
+        gambar: "https://i.pinimg.com/736x/ac/d4/82/acd482ae82cf6d1af19ab5ea736a4644.jpg",
+        deskripsi: "Mini tiramisu cake dengan aroma kopi dan krim lembut.",
+        diskon: "-22%"
+    },
+    {
+        id: "produk14",
+        nama: "Kastengel Keju",
+        harga: 42000,
+        gambar: "https://i.pinimg.com/736x/2a/3c/ff/2a3cff47cf47ccab69a927a9ea9f2cbb.jpg",
+        deskripsi: "Kue kastengel renyah dengan taburan keju edam yang gurih.",
+        diskon: "-15%"
+    },
+    {
+        id: "produk15",
+        nama: "Donat Coklat Lumer",
+        harga: 20000,
+        gambar: "https://i.pinimg.com/736x/b3/d2/25/b3d2254741371b5493b70fdcec8f9b78.jpg",
+        deskripsi: "Donat empuk dengan isian coklat yang lumer di mulut.",
+        diskon: "-10%"
+    },
+    {
+        id: "produk16",
+        nama: "Bolu Jadul Keju",
+        harga: 27000,
+        gambar: "https://i.pinimg.com/736x/a4/02/58/a40258226285dc5dc8365a6f866d347d.jpg",
+        deskripsi: "Bolu jadul rasa keju dengan tekstur lembut dan klasik.",
+        diskon: "-12%"
+    },
+    {
+        id: "produk17",
+        nama: "Kue Semprit Mawar",
+        harga: 32000,
+        gambar: "https://i.pinimg.com/736x/24/5e/0c/245e0c6fe882653f2aef85c7a0666975.jpg",
+        deskripsi: "Kue semprit bentuk mawar dengan aroma vanilla yang harum.",
+        diskon: "-18%"
+    },
+    {
+        id: "produk18",
+        nama: "Lidah Kucing Warna-warni",
+        harga: 35000,
+        gambar: "https://i.pinimg.com/736x/e2/8e/30/e28e308517b94d3c892dfde5496e3930.jpg",
+        deskripsi: "Lidah kucing warna-warni renyah, cocok untuk hampers cantik.",
+        diskon: "-20%"
+    },
+    {
+        id: "produk19",
+        nama: "Red Velvet Strawberry Cheesecake",
+        harga: 18000,
+        gambar: "https://i.pinimg.com/736x/1e/92/70/1e92708d4c30a0c225cd6e2a8d6aac8b.jpg",
+        deskripsi: "Perpaduan sempurna antara kelembutan red velvet, kelezatan cream cheese, dan segarnya strawberry.",
+        diskon: "-15%"
+    },
+    {
+        id: "produk22",
+        nama: "Black Forest Cake",
+        harga: 18000,
+        gambar: "https://i.pinimg.com/1200x/14/39/f0/1439f0e6be89377bfbbf0802f28f77cf.jpg",
+        deskripsi: "Kue cokelat lapis dengan krim, buah ceri, dan parutan cokelat hitam. Asli dari Jerman, populer di Indonesia.",
+        diskon: "-5%"
+    },
+    {
+        id: "produk23",
+        nama: "Opera Cake",
+        harga: 18000,
+        gambar: "https://i.pinimg.com/1200x/a2/76/7a/a2767a2a3bd6bbf36a27dff85cd81d27.jpg",
+        deskripsi: "Kue elegan berlapis-lapis dari sponge almond, ganache cokelat, dan kopi buttercream. Rasanya kaya dan berkelas.",
+        diskon: "-15%"
+    },
+    {
+        id: "produk24",
+        nama: "Matcha Cake",
+        harga: 18000,
+        gambar: "https://i.pinimg.com/736x/97/9c/dc/979cdcb3bbca64c9aca7138bc857fd20.jpg",
+        deskripsi: "Cake berbasis teh hijau Jepang dengan rasa earthy dan aroma khas, biasanya dipadukan krim vanilla atau white chocolate.",
+        diskon: "-15%"
+    },
+    {
+        id: "produk25",
+        nama: "Mango Mousse Cake",
+        harga: 18000,
+        gambar: "https://i.pinimg.com/736x/78/bf/63/78bf63dcd5cef17bbf39a944c3f6fdb6.jpg",
+        deskripsi: "Kue lembut berbasis mousse mangga, ringan dan menyegarkan, cocok sebagai penutup musim panas.",
+        diskon: "-15%"
+    },
+    {
+        id: "produk18",
+        nama: "Lidah Kucing Warna-warni",
+        harga: 35000,
+        gambar: "https://i.pinimg.com/736x/e2/8e/30/e28e308517b94d3c892dfde5496e3930.jpg",
+        deskripsi: "Lidah kucing warna-warni renyah, cocok untuk hampers cantik.",
+        diskon: "-20%"
+    },
+  // Tambahkan produk lain di sini...
+];
+
+function tampilkanProduk() {
+  const row = document.getElementById('produk-row');
+  row.innerHTML = '';
+  produkList.forEach(p => {
+    row.innerHTML += `
+      <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+        <div class="card product-card h-100 border-0 shadow-sm" style="border-radius: 12px;"
+          data-id="${p.id}"
+          data-nama="${p.nama}"
+          data-harga="${p.harga}"
+          data-gambar="${p.gambar}"
+          data-deskripsi="${p.deskripsi}">
+          <div class="position-relative">
+            <img src="${p.gambar}" class="card-img-top" alt="Produk" style="height: 180px; object-fit: cover; width: 100%; border-radius: 12px 12px 0 0;" />
+            <span class="badge bg-danger position-absolute top-0 end-0 m-2" style="font-size: 0.8rem;">${p.diskon || ''}</span>
+          </div>
+          <div class="card-body p-2">
+            <span class="badge bg-warning text-dark mb-1" style="font-size: 0.75rem;">Star</span>
+            <h6 class="card-title mb-1" style="font-weight: 500; font-size: 0.95rem; min-height: 2.2em;">${p.nama}</h6>
+            <div class="mb-1">
+              <span class="badge bg-light text-dark border" style="font-size: 0.7rem;">Garansi</span>
+              <span class="badge bg-danger" style="font-size: 0.7rem;">COD</span>
+            </div>
+            <p class="text-danger fw-bold mb-2" style="font-size: 1.1rem;">Rp${Number(p.harga).toLocaleString()}</p>
+            <div class="d-flex justify-content-between gap-1 mt-2">
+              <a href="pembelian.html?nama=${encodeURIComponent(p.nama)}&harga=${p.harga}&gambar=${encodeURIComponent(p.gambar)}&deskripsi=${encodeURIComponent(p.deskripsi)}"
+                 class="btn btn-outline-success btn-sm flex-fill py-1 px-2 btn-beli">Beli</a>
+              <button class="btn btn-outline-success btn-sm flex-fill py-1 px-2 btn-keranjang"
+                data-nama="${p.nama}" data-harga="${p.harga}" data-gambar="${p.gambar}" data-deskripsi="${p.deskripsi}" data-id="${p.id}">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+  // Fungsi update badge keranjang di navbar
+  function updateCartBadge() {
+    const keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+    let total = 0;
+    keranjang.forEach(item => total += item.qty);
+    // Update semua badge di navbar (mobile & desktop)
+    document.querySelectorAll('.bi-cart-fill').forEach(icon => {
+      const badge = icon.parentElement.querySelector('.badge');
+      if (badge) badge.textContent = total;
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    tampilkanProduk();
+    updateCartBadge();
+
+    // Event delegation untuk tombol Beli dan + Keranjang
+    document.getElementById('produk-row').addEventListener('click', function(e) {
+      // Tombol Beli
+      if (e.target.classList.contains('btn-beli')) {
+        const card = e.target.closest('.product-card');
+        const produk = {
+          id: card.dataset.id,
+          nama: card.dataset.nama,
+          harga: card.dataset.harga,
+          gambar: card.dataset.gambar,
+          deskripsi: card.dataset.deskripsi
+        };
+        sessionStorage.setItem('produk_dipilih', JSON.stringify(produk));
+        window.location.href = 'pembelian.html';
+      }
+
+      // Tombol + Keranjang
+      if (e.target.classList.contains('btn-keranjang')) {
+        const card = e.target.closest('.product-card');
+        const produk = {
+          id: card.dataset.id,
+          nama: card.dataset.nama,
+          harga: Number(card.dataset.harga),
+          gambar: card.dataset.gambar,
+          deskripsi: card.dataset.deskripsi,
+          qty: 1
+        };
+        let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+        const idx = keranjang.findIndex(item => item.id === produk.id);
+        if (idx > -1) {
+          keranjang[idx].qty += 1;
+        } else {
+          keranjang.push(produk);
+        }
+        localStorage.setItem('keranjang', JSON.stringify(keranjang));
+        updateCartBadge();
+        alert('Produk ditambahkan ke keranjang!');
+      }
+    });
+  });
+
+  // Slider functionality (tidak diubah)
+  document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.hero-slider .slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    let idx = 0, timer;
+    function showSlide(i) {
+      slides.forEach((s, j) => {
+        s.classList.toggle('active', j === i);
+        dots[j].classList.toggle('active', j === i);
+      });
+      idx = i;
+    }
+    function nextSlide() { showSlide((idx+1)%slides.length); }
+    function prevSlide() { showSlide((idx-1+slides.length)%slides.length); }
+    function autoPlay() {
+      timer = setInterval(nextSlide, 4500);
+    }
+    document.querySelector('.hero-next').onclick = () => { nextSlide(); clearInterval(timer); autoPlay(); };
+    document.querySelector('.hero-prev').onclick = () => { prevSlide(); clearInterval(timer); autoPlay(); };
+    dots.forEach((dot, i) => {
+      dot.onclick = () => { showSlide(i); clearInterval(timer); autoPlay(); };
+    });
+    showSlide(0);
+    autoPlay();
+  });
+  </script>
+</body>
+</html>
